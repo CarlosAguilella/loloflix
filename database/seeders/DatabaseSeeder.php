@@ -35,9 +35,6 @@ class DatabaseSeeder extends Seeder
         $batman2 = Film::create(["title" => "Batman 2", "description" => "Ja jdasf jsdafj dsfjdsaf fd", "release_year" => "2002", "rating" => 0, "ticket_price" => 20, "photo" => "/photo.jpg", "video" => "/video/video.mp4"]);
         $batman3 = Film::create(["title" => "Batman 3", "description" => "Ja jdasf jsdafj dsfjdsaf fd", "release_year" => "2002", "rating" => 0, "ticket_price" => 30, "photo" => "/photo.jpg", "video" => "/video/video.mp4"]);
         $batman4 = Film::create(["title" => "Batman 4", "description" => "Ja jdasf jsdafj dsfjdsaf fd", "release_year" => "2002", "rating" => 0, "ticket_price" => 0, "photo" => "/photo.jpg", "video" => "/video/video.mp4"]);
-
-
-
         $batman6->generos()->save($drama);
         $batman6->generos()->save($terror);
 
