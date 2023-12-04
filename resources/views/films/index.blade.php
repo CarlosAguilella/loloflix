@@ -6,7 +6,7 @@
         </h2>
     </x-slot>
 
-    <div class="grid grid-cols-4 gap-8 mx-8">
+    <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-8 mx-8">
         @foreach ($films as $film)
             <div class="my-8">
                 <a href="{{ route('films.show', $film) }}" class="block text-sky-500 text-2xl hover:underline overflow-hidden">
@@ -27,4 +27,4 @@
     </div>
 </x-app-layout>
 
-{{-- npx tailwindcss init --}}
+{{-- npm run dev --}}

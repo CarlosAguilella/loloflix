@@ -5,15 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreFilmRequest extends FormRequest
+class SearchFilmRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        // retorna true si el usuario es admin
-        return Auth::user()->admin == true;
+        return Auth::user() !== null;
     }
 
     /**
@@ -24,8 +23,6 @@ class StoreFilmRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => "required",
-
         ];
     }
 }

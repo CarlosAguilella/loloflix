@@ -60,7 +60,7 @@ class ProfileController extends Controller
 
     public function tienda()
     {
-        return view('films.tienda');
+        return view('films.tienda')->with('error', "No tienes suficientes creditos");
     }
 
     public function añadircreditos()

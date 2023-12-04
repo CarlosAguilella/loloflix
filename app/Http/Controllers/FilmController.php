@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFilmRequest;
 use App\Http\Requests\UpdateFilmRequest;
+use App\Http\Requests\SearchFilmRequest;
+
 use App\Models\Film;
+use App\Models\Genero;
 use Illuminate\Support\Facades\Auth;
 
 class FilmController extends Controller
@@ -14,23 +17,15 @@ class FilmController extends Controller
      */
     public function dashboard()
     {
-        $filmsLatest = $this->verRecientes();
-        $filmsLiked = $this->verRecientes();
-
         return view('index')->with('films',Film::all())
-            ->with('filmsLatest',$filmsLatest)
-            ->with('filmsLiked',$filmsLiked);
+            ->with('filmsLatest', $this->verRecientes())
+            ->with('filmsLiked', $this->verPopulares());
 
     }
 
     public function index()
     {
-        $filmsLatest = $this->verRecientes();
-        $filmsLiked = $this->verPopulares();
-        return view('films.index')->with('films',Film::all())
-        ->with('filmsLatest',$filmsLatest)
-        ->with('filmsLiked',$filmsLiked);
-
+        return view('films.index')->with('films',Film::all());
     }
 
     /**
@@ -38,7 +33,7 @@ class FilmController extends Controller
      */
     public function create()
     {
-        //
+        return view('films.create')->with('generos', Genero::all());
     }
 
     /**
@@ -46,7 +41,22 @@ class FilmController extends Controller
      */
     public function store(StoreFilmRequest $request)
     {
-        //
+        // Libro::create($request->all());
+
+
+        $libro = new Film($request->all());
+
+        // dd($request->file('videofile'));
+
+        if ($request->file('videofile')){
+            $libro->video = $request->file('videofile')->storePublicly('video','public');
+        }
+
+        $libro->save();
+
+        $libro->generos()->attach($request->generos);
+
+        return to_route("films.index");
     }
 
     /**
@@ -54,6 +64,10 @@ class FilmController extends Controller
      */
     public function show(Film $film)
     {
+        if (Auth::user()->monedero < $film->ticket_price) {
+            return redirect()->route('profile.monedero', ['referrer' => route('films.show', $film)]);
+        }
+
         Auth::user()->monedero = Auth::user()->monedero - $film->ticket_price;
         Auth::user()->save();
 
@@ -110,10 +124,15 @@ class FilmController extends Controller
     }
 
     public function verPopulares() {
+        return Film::withCount('users_liked')->orderBy('users_liked_count', 'desc')->take(4)->get();
+    }
 
-        $filmsLiked = Film::withCount('users_liked')->orderBy('users_liked_count', 'desc')->take(4)->get();
+    public function search(SearchFilmRequest $request)
+    {
+        $name = $request->search;
 
-        return $filmsLiked;
+        $films = Film::where('title', 'like', "%$name%")->get();
+        return view('films.index', compact('films'));
     }
 
 }

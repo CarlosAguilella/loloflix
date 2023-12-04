@@ -1,45 +1,49 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Index') }}
+        <h2 class="font-semibold text-3xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Welcome to Index') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <!-- Latest Films Section -->
+    <div class="py-12 bg-gray-900">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("These are the newest movies we have added!") }}
-                </div>
-                <div class="flex space-x-4 p-4">
-                    @foreach ($filmsLatest as $film)
-                        <div class="flex-shrink-0 border truncate border-blue-500 p-4 w-48 h-48">
-                            <div class="text-lg font-bold overflow-hidden overflow-ellipsis">
-                                {{ $film->title }}
+                    <h2 class="text-2xl font-semibold mb-4">{{ __("New Releases") }}</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                        @foreach ($filmsLatest as $film)
+                            <div class="group relative overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-lg shadow-md">
+                                <img src="{{ $film->photo }}" alt="{{ $film->title }}" class="w-full h-64 object-cover transition-transform duration-300 transform group-hover:scale-105">
+                                <div class="p-4">
+                                    <h3 class="text-lg font-semibold mb-2">{{ $film->title }}</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">{{ $film->description }}</p>
+                                </div>
                             </div>
-                            <img src="{{ $film->photo }}" class="mt-2" width="100px" height="100px">
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="py-12">
+    <!-- Most Liked Films Section -->
+    <div class="py-12 bg-gray-900">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("These are the films that our audience has liked the most!") }}
-                </div>
-                <div class="flex space-x-4 p-4">
-                    @foreach ($filmsLiked as $film)
-                        <div class="flex-shrink-0 border border-blue-500 p-4 w-48 h-48">
-                            <div class="text-lg font-bold truncate overflow-hidden overflow-ellipsis">
-                                {{ $film->title }}
+                    <h2 class="text-2xl font-semibold mb-4">{{ __("Top Picks") }}</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                        @foreach ($filmsLiked as $film)
+                            <div class="group relative overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-lg shadow-md">
+                                <img src="{{ $film->photo }}" alt="{{ $film->title }}" class="w-full h-48 object-cover transition-transform duration-300 transform group-hover:scale-105">
+                                <div class="p-4">
+                                    <h3 class="text-lg font-semibold mb-2">{{ $film->title }}</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">{{ $film->description }}</p>
+                                </div>
                             </div>
-                            <img src="{{ $film->photo }}" class="mt-2" width="100px" height="100px">
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

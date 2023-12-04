@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('title', 100)->unique();
             $table->text('description');
             $table->string('release_year', 4);
-            $table->decimal('rating', 2, 2);
+            $table->decimal('rating', 2, 2)->default(0);
             $table->decimal('ticket_price', 8, 2);
-            $table->string('photo', 100);
+            $table->string('photo', 100)->default('photo.jpg');
             $table->string('video', 100);
         });
     }

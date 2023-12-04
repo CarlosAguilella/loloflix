@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Film extends Model
 {
     use HasFactory;
+    public $fillable = [
+        'title',
+        'description',
+        'ticket_price',
+        'release_year',
+    ];
 
     public function generos(){
         return $this->belongsToMany(Genero::class);

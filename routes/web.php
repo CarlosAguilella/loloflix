@@ -34,15 +34,17 @@ Route::resource('films', FilmController::class);
 GET 	    /films 	                index 	films.index
 GET 	    /films/create 	        create 	films.create
 POST 	    /films 	                store   films.store
-GET 	    /films/{photo} 	        show 	films.show
-GET 	    /films/{photo}/edit 	edit 	films.edit
-PUT/PATCH 	/films/{photo} 	        update 	films.update
-DELETE 	    /films/{photo} 	        destroy films.destroy
+GET 	    /films/{film} 	        show 	films.show
+GET 	    /films/{film}/edit  	edit 	films.edit
+PUT/PATCH 	/films/{film} 	        update 	films.update
+DELETE 	    /films/{film} 	        destroy films.destroy
 */
 
 Route::get('/films-like/{film}', [FilmController::class, 'ponerlikes'])->name('films.likes.poner');
 
 Route::get('/films-liked', [FilmController::class, 'verlikes'])->name('films.likes.ver');
+
+Route::get('/films-search', [FilmController::class, 'search'])->name('films.search');
 
 Route::get('/monedero', [ProfileController::class, 'tienda'])->name('profile.monedero');
 Route::get('/monedero-add', [ProfileController::class, 'añadircreditos'])->name('profile.monedero.add');
